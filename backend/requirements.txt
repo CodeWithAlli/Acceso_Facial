@@ -1,0 +1,12 @@
+flask
+flask-cors
+flask-jwt-extended
+bcrypt
+python-dotenv
+psycopg2-binary
+opencv-python-headless
+numpy
+gTTS
+supabase
+gunicorn
+pytest

@@ -1,0 +1,32 @@
+# .gitignore
+ 
+# Entorno virtual
+venv/
+.venv/
+ 
+# Variables de entorno
+.env
+ 
+# Archivos subidos (Mantiene las carpetas estructurales pero ignora las fotos)
+backend/uploads/fotos/*
+
+# Audios generados por gTTS en cada evento (se regeneran solos)
+backend/uploads/audio/*.mp3
+
+# Modelos de reconocimiento facial (pesados, se descargan aparte)
+backend/models/*.onnx
+ 
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pkl
+ 
+# Node
+node_modules/
+ 
+# VS Code
+.vscode/
+ 
+# macOS
+.DS_Store

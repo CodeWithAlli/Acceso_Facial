@@ -1,0 +1,109 @@
+<!-- frontend/dashboard.html -->
+<!DOCTYPE html>
+<html lang='es'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <title>Dashboard de Asistencia</title>
+  <link rel='stylesheet' href='styles/main.css'>
+  <script src='https://cdn.jsdelivr.net/npm/chart.js'></script>
+</head>
+<body>
+  <div class='container'>
+
+    <header class='encabezado'>
+      <div class='pestana'>
+        <span class='campana'>📋</span>
+        <h1>Dashboard de Asistencia</h1>
+      </div>
+      <div class='nav-links'>
+        <a href='index.html'>Cámara principal</a>
+        <a href='login.html'>Administrador</a>
+      </div>
+    </header>
+
+    <p id='admin-estado' style='text-align:center;color:var(--color-ink-soft);font-family:var(--font-mono);font-size:0.82rem'></p>
+
+    <div class='ficha'>
+      <span class='eyebrow'>Catálogo de fichas</span>
+      <h2>Buscar persona</h2>
+      <label class='campo-label'>Nombre completo o DNI</label>
+      <input type='text' id='buscar-input' placeholder='Ej: Ana García  o  45678912'>
+      <button onclick='buscarPersona()'>Buscar</button>
+      <div id='resultados-busqueda'></div>
+    </div>
+
+    <div id='panel-persona' class='oculto'>
+
+      <div class='cards'>
+        <div class='card'><div class='numero' id='persona-nombre'>—</div><div class='label'>Nombre</div></div>
+        <div class='card'><div class='numero' id='persona-dni'>—</div><div class='label'>DNI</div></div>
+        <div class='card'><div class='numero' id='persona-tipo'>—</div><div class='label'>Tipo</div></div>
+      </div>
+
+      <div class='divider-label'>Historial</div>
+      <table>
+        <thead><tr><th>Evento</th><th>Fecha</th><th>Hora</th><th>Fuera de horario</th><th></th></tr></thead>
+        <tbody id='tabla-historial'></tbody>
+      </table>
+
+      <div class='divider-label'>Accesos por hora</div>
+      <canvas id='grafico-horas' height='100'></canvas>
+
+      <div class='divider-label'>Resumen del mes</div>
+      <div class='ficha'>
+        <span class='eyebrow'>Faltas, descuentos e inasistencia</span>
+        <h2>Calcular periodo</h2>
+        <label class='campo-label'>Mes</label>
+        <input type='month' id='resumen-periodo'>
+
+        <div id='monto-falta-campo'>
+          <label class='campo-label'>Monto a descontar por falta (S/.) — solo empleados</label>
+          <input type='number' id='monto-por-falta' placeholder='0.00'>
+        </div>
+
+        <button onclick='calcularResumen()'>Calcular resumen</button>
+
+        <div id='resumen-panel' class='oculto' style='margin-top:18px'>
+          <div id='resumen-badge' class='badge-estado'></div>
+          <div class='cards' id='resumen-cards'></div>
+          <canvas id='grafico-faltas' height='120' style='margin-top:16px'></canvas>
+          <div class='leyenda-colores' id='leyenda-faltas'>
+            <span><i style='background:var(--color-amber)'></i>Faltas totales</span>
+            <span><i style='background:var(--color-sage)'></i>Justificadas</span>
+            <span><i style='background:var(--color-brick)'></i>Con descuento / en riesgo</span>
+            <span><i style='background:var(--color-accent)'></i>Tardanzas</span>
+          </div>
+        </div>
+      </div>
+
+      <div class='ficha'>
+        <span class='eyebrow'>Requiere sesión de administrador</span>
+        <h2>Justificar falta o tardanza</h2>
+        <label class='campo-label'>Fecha</label>
+        <input type='date' id='justificacion-fecha'>
+        <label class='campo-label'>Tipo</label>
+        <select id='justificacion-tipo'>
+          <option value='falta'>Falta completa</option>
+          <option value='tardanza'>Tardanza</option>
+          <option value='salida_temprana'>Salida temprana</option>
+        </select>
+        <label class='campo-label'>Motivo</label>
+        <input type='text' id='justificacion-motivo' placeholder='Ej: cita médica'>
+        <button onclick='guardarJustificacion()'>Guardar justificación</button>
+        <div id='justificacion-resultado' style='margin-top:12px'></div>
+      </div>
+    </div>
+
+    <a href='index.html' class='link-dashboard'>← Volver a la cámara</a>
+    <a href='#' onclick='cerrarSesionAdmin(); return false;' class='link-dashboard'>Cerrar sesión</a>
+  </div>
+
+  <script src='scripts/core/config.js'></script>
+  <script src='scripts/core/utils.js'></script>
+  <script src='scripts/dashboard/search.js'></script>
+  <script src='scripts/dashboard/history.js'></script>
+  <script src='scripts/dashboard/chart.js'></script>
+  <script src='scripts/dashboard/admin.js'></script>
+</body>
+</html>

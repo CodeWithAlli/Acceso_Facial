@@ -1,0 +1,71 @@
+<!-- frontend/index.html -->
+<!DOCTYPE html>
+<html lang='es'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <title>Sistema de Asistencia</title>
+  <link rel='stylesheet' href='styles/main.css'>
+  <script src='https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js'></script>
+  <script src='https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js'></script>
+  <script src='https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js'></script>
+</head>
+<body>
+  <div class='container'>
+
+    <header class='encabezado'>
+      <div class='pestana'>
+        <span class='campana'>🔔</span>
+        <h1>Registro de Asistencia</h1>
+      </div>
+      <div class='nav-links'>
+        <a href='login.html'>Administrador</a>
+      </div>
+    </header>
+
+    <div class='hero'>
+      <h2>Buenos días</h2>
+      <p>Mira a la cámara y presiona el botón para marcar tu entrada o tu salida del día.</p>
+    </div>
+
+    <div class='camara-box'>
+      <video id='video' autoplay playsinline></video>
+      <canvas id='canvas'></canvas>
+    </div>
+    <div id='estado' class='estado'>Iniciando cámara...</div>
+
+    <button type="button" id="btn-autenticar" onclick="iniciarAutenticacion(event)">
+      📸 Marcar asistencia ahora
+    </button>
+
+    <div id='resultado' class='resultado oculto'></div>
+
+    <div class='divider-label'>Persona nueva</div>
+
+    <div class='ficha'>
+      <span class='eyebrow'>Ficha de inscripción</span>
+      <h2>Registrar en el sistema</h2>
+      <label class='campo-label'>Nombre completo</label>
+      <input type='text' id='nombre-input' placeholder='Ej: Ana García Rojas'>
+      <label class='campo-label'>DNI</label>
+      <input type='text' id='dni-input' placeholder='Ej: 45678912'>
+      <label class='campo-label'>Tipo de persona</label>
+      <select id='tipo-persona-select'>
+        <option value='empleado'>Empleado</option>
+        <option value='estudiante'>Estudiante</option>
+      </select>
+      <button id='btn-registrar' onclick='iniciarRegistro()'>Capturar y registrar</button>
+    </div>
+
+  </div>
+
+  <audio id='audio-respuesta'></audio>
+
+  <script src='scripts/core/config.js'></script>
+  <script src='scripts/core/utils.js'></script>
+  <script src='scripts/core/face.js'></script>
+  <script src='scripts/core/voice.js'></script>
+  <script src='scripts/core/register.js'></script>
+  <script src='scripts/core/auth.js'></script>
+</body>
+</html>

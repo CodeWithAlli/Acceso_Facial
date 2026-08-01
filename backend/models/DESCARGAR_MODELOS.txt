@@ -1,0 +1,10 @@
+Esta carpeta debe contener 2 archivos que NO se incluyen en el zip por su
+peso (son modelos de reconocimiento facial). Descargalos con estos 2
+comandos en PowerShell, parado en la raiz del proyecto:
+
+Invoke-WebRequest -Uri "https://github.com/opencv/opencv_zoo/raw/main/models/face_detection_yunet/face_detection_yunet_2023mar.onnx" -OutFile "backend/models/face_detection_yunet_2023mar.onnx"
+
+Invoke-WebRequest -Uri "https://github.com/opencv/opencv_zoo/raw/main/models/face_recognition_sface/face_recognition_sface_2021dec.onnx" -OutFile "backend/models/face_recognition_sface_2021dec.onnx"
+
+Verifica que queden 2 archivos .onnx en esta carpeta (backend/models/)
+antes de levantar el servidor Flask, o el sistema no va a arrancar.

@@ -1,0 +1,63 @@
+<!-- frontend/login.html -->
+<!DOCTYPE html>
+<html lang='es'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <title>Panel de Administrador</title>
+  <link rel='stylesheet' href='styles/main.css'>
+  <script src='https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js'></script>
+  <script src='https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js'></script>
+  <script src='https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js'></script>
+</head>
+<body>
+  <div class='container'>
+
+    <header class='encabezado'>
+      <div class='pestana'>
+        <span class='campana'>🗝️</span>
+        <h1>Acceso de Administrador</h1>
+      </div>
+      <div class='nav-links'>
+        <a href='index.html'>Cámara principal</a>
+      </div>
+    </header>
+
+    <div class='hero'>
+      <h2>Identifícate</h2>
+      <p>Ingresa con tu usuario y contraseña, o con tu propio rostro si ya lo registraste.</p>
+    </div>
+
+    <div class='ficha'>
+      <span class='eyebrow'>Credenciales</span>
+      <h2>Ingresar con contraseña</h2>
+      <label class='campo-label'>Usuario</label>
+      <input type='text' id='admin-usuario' placeholder='admin'>
+      <label class='campo-label'>Contraseña</label>
+      <input type='password' id='admin-password' placeholder='••••••••'>
+      <button onclick='loginPassword()'>Ingresar</button>
+    </div>
+
+    <div class='divider-label'>o con tu rostro</div>
+
+    <div class='camara-box'>
+      <video id='video' autoplay playsinline></video>
+      <canvas id='canvas'></canvas>
+    </div>
+    <div id='estado' class='estado'>Iniciando cámara...</div>
+
+    <button id='btn-login-facial' onclick='loginFacial()' style='max-width:440px;margin:18px auto;display:block'>
+      🙂 Ingresar con mi rostro
+    </button>
+
+    <div id='resultado' class='resultado oculto'></div>
+
+    <a href='index.html' class='link-dashboard'>← Volver a la cámara principal</a>
+  </div>
+
+  <script src='scripts/core/config.js'></script>
+  <script src='scripts/core/utils.js'></script>
+  <script src='scripts/core/face.js'></script>
+  <script src='scripts/admin/login.js'></script>
+</body>
+</html>

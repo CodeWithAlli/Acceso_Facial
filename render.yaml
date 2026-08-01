@@ -1,0 +1,38 @@
+# render.yaml
+# Blueprint de Render: si conectas el repo con esto detectado, Render
+# pre-llena el servicio con estos comandos. Igual tienes que llenar a
+# mano las variables marcadas 'sync: false' en el dashboard (son
+# secretas, nunca deben ir escritas en este archivo ni en el repo).
+
+services:
+  - type: web
+    name: sistema-acceso-facial-backend
+    env: python
+    plan: free
+    buildCommand: "pip install -r backend/requirements.txt && bash backend/models/descargar_modelos.sh"
+    startCommand: "gunicorn backend.app:app --bind 0.0.0.0:$PORT"
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_KEY
+        sync: false
+      - key: SECRET_KEY
+        sync: false
+      - key: JWT_SECRET_KEY
+        sync: false
+      - key: JWT_EXPIRATION_HOURS
+        value: "8"
+      - key: SIMILARITY_THRESHOLD
+        value: "0.363"
+      - key: SIMILARITY_THRESHOLD_ADMIN
+        value: "0.45"
+      - key: UMBRAL_INASISTENCIA_ESTUDIANTE
+        value: "0.30"
+      - key: HORA_ENTRADA_DEFAULT
+        value: "08:00"
+      - key: HORA_SALIDA_DEFAULT
+        value: "17:00"
+      - key: TOLERANCIA_MINUTOS
+        value: "10"

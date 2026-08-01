@@ -1,0 +1,511 @@
+/* ============================================================
+   Sistema de Acceso Facial — Sistema de diseno "Ficha de asistencia"
+   Paleta calida institucional/escolar. Cada persona tiene su propia
+   "ficha" (tarjeta tipo indice), como en un registro escolar clasico.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Karla:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+:root {
+  /* --- Color: profesional, institucional, calido pero sobrio --- */
+  --color-bg:          #F6F4EF;   /* papel neutro, menos amarillo */
+  --color-surface:     #FFFFFF;   /* superficie de tarjeta */
+  --color-ink:         #2A2E33;   /* tinta carbon-azulado, no negro puro */
+  --color-ink-soft:    #6B7280;   /* texto secundario, gris piedra */
+  --color-accent:      #386772;   /* teal institucional, accion primaria */
+  --color-accent-dark: #294D56;
+  --color-sage:        #4C7A5E;   /* verde salvia, exito/ingreso */
+  --color-sage-dark:   #3A6049;
+  --color-brick:       #A6473F;   /* terracota apagado, alerta/salida */
+  --color-amber:       #B8863B;   /* mostaza, neutral/informativo (riesgo, faltas totales) */
+  --color-amber-dark:  #8F6A2E;
+  --color-border:      #E3E0D8;   /* linea fina neutra */
+  --color-border-soft: #EEEBE3;
+
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body:    'Karla', sans-serif;
+  --font-mono:    'IBM Plex Mono', monospace;
+
+  --radius: 14px;
+  --shadow-card: 0 2px 0 var(--color-border), 0 10px 24px -12px rgba(58, 46, 34, 0.25);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--color-ink);
+  background-color: var(--color-bg);
+  background-image:
+    radial-gradient(circle, rgba(58,46,34,0.05) 1px, transparent 1px);
+  background-size: 22px 22px;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 28px 20px 60px;
+}
+
+/* ============================================================
+   Encabezado — "pestana de ficha" (tab de carpeta escolar)
+   ============================================================ */
+header.encabezado {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.pestana {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  border-bottom: 4px solid var(--color-accent);
+  border-radius: 10px 10px 4px 4px;
+  padding: 10px 18px;
+  box-shadow: 0 2px 0 var(--color-border);
+}
+
+.pestana .campana { font-size: 1.3rem; }
+
+.pestana h1 {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+
+.nav-links { display: flex; gap: 10px; flex-wrap: wrap; }
+
+.nav-links a {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-ink);
+  text-decoration: none;
+  padding: 8px 14px;
+  border: 1.5px solid var(--color-border);
+  border-radius: 999px;
+  background: var(--color-surface);
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+.nav-links a:hover { border-color: var(--color-accent); transform: translateY(-1px); }
+
+/* ============================================================
+   Hero de bienvenida
+   ============================================================ */
+.hero { text-align: center; margin-bottom: 26px; }
+
+.hero h2 {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  font-weight: 600;
+  margin: 0 0 6px;
+  color: var(--color-ink);
+}
+
+.hero p {
+  font-size: 0.98rem;
+  color: var(--color-ink-soft);
+  max-width: 460px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+/* ============================================================
+   Camara — marco tipo foto de carnet, con "cinta" de esquina
+   ============================================================ */
+.camara-box {
+  position: relative;
+  max-width: 480px;
+  margin: 0 auto 18px;
+  background: var(--color-surface);
+  border: 3px solid var(--color-ink);
+  border-radius: var(--radius);
+  padding: 10px;
+  box-shadow: var(--shadow-card);
+}
+
+.camara-box::before {
+  /* cinta adhesiva de esquina, detalle calido tipo carnet pegado */
+  content: '';
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-2deg);
+  width: 90px;
+  height: 26px;
+  background: rgba(56, 103, 114, 0.18);
+  border: 1px solid rgba(56, 103, 114, 0.3);
+}
+
+.camara-box video,
+.camara-box canvas {
+  width: 100%;
+  border-radius: 8px;
+  display: block;
+}
+
+.camara-box canvas { position: absolute; top: 10px; left: 10px; width: calc(100% - 20px); pointer-events: none; }
+
+.estado {
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  margin-top: 10px;
+  padding: 6px 0;
+  color: var(--color-ink-soft);
+}
+
+/* ============================================================
+   Fichas (tarjetas tipo indice escolar) — el elemento firma
+   ============================================================ */
+.ficha {
+  position: relative;
+  background: var(--color-surface);
+  border: 1.5px dashed var(--color-border);
+  border-radius: var(--radius);
+  padding: 22px 20px 20px;
+  margin: 0 auto 20px;
+  max-width: 440px;
+  box-shadow: var(--shadow-card);
+}
+
+.ficha::before {
+  /* el "pin" que sostiene la ficha */
+  content: '';
+  position: absolute;
+  top: -7px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--color-brick);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.25);
+}
+
+.ficha h2 {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--color-ink);
+  margin: 0 0 14px;
+  text-align: center;
+}
+
+.ficha .eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-accent-dark);
+  text-align: center;
+  display: block;
+  margin-bottom: 4px;
+}
+
+/* ============================================================
+   Controles: layout de dos fichas lado a lado
+   ============================================================ */
+.controles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  align-items: start;
+  margin-bottom: 10px;
+}
+.controles .ficha { margin: 0; max-width: none; }
+
+@media (max-width: 640px) {
+  .controles { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   Formularios
+   ============================================================ */
+input[type='text'],
+input[type='password'],
+input[type='number'],
+input[type='date'],
+input[type='month'],
+select {
+  width: 100%;
+  padding: 11px 12px;
+  background: var(--color-bg);
+  border: 1.5px solid var(--color-border);
+  border-radius: 8px;
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  margin-bottom: 10px;
+}
+input:focus, select:focus {
+  outline: none;
+  border-color: var(--color-accent);
+}
+input::placeholder { color: var(--color-ink-soft); opacity: 0.8; }
+
+label.campo-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-ink-soft);
+  margin-bottom: 4px;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.95rem;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  background: var(--color-accent);
+  color: #fff;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+button:hover { background: var(--color-accent-dark); }
+button:active { transform: scale(0.98); }
+button:disabled { opacity: 0.6; cursor: not-allowed; }
+
+button.secundario {
+  background: transparent;
+  color: var(--color-ink);
+  border: 1.5px solid var(--color-border);
+}
+button.secundario:hover { border-color: var(--color-accent); background: transparent; }
+
+button.peligro { background: var(--color-brick); }
+button.peligro:hover { background: #8f3630; }
+
+/* ============================================================
+   Resultado / mensajes de estado
+   ============================================================ */
+.resultado {
+  text-align: center;
+  font-weight: 600;
+  padding: 14px 18px;
+  border-radius: 10px;
+  margin: 0 auto 20px;
+  max-width: 440px;
+  font-family: var(--font-body);
+}
+.resultado.exito { background: rgba(76, 122, 94, 0.14); color: var(--color-sage-dark); border: 1.5px solid var(--color-sage); }
+.resultado.error { background: rgba(176, 69, 61, 0.12); color: var(--color-brick); border: 1.5px solid var(--color-brick); }
+.oculto { display: none !important; }
+
+/* ============================================================
+   Dashboard: cards resumen tipo "ficha" en fila
+   ============================================================ */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin: 20px 0 30px;
+}
+@media (max-width: 640px) { .cards { grid-template-columns: 1fr; } }
+
+.card {
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+  box-shadow: 0 2px 0 var(--color-border);
+}
+.card .numero {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--color-ink);
+}
+.card .label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-ink-soft);
+  margin-top: 4px;
+}
+
+/* ============================================================
+   Tablas — libro de registro / ledger
+   ============================================================ */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--color-surface);
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1.5px solid var(--color-border);
+  margin-bottom: 24px;
+}
+thead { background: var(--color-ink); }
+thead th {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #F1EFE7;
+  text-align: left;
+  padding: 10px 14px;
+}
+tbody td {
+  padding: 10px 14px;
+  font-size: 0.88rem;
+  border-top: 1px solid var(--color-border-soft);
+  font-family: var(--font-mono);
+}
+tbody tr:hover { background: rgba(56, 103, 114, 0.05); }
+
+.badge-ingreso, .badge-salida {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.72rem;
+  padding: 3px 10px;
+  border-radius: 999px;
+  letter-spacing: 0.03em;
+}
+.badge-ingreso { color: var(--color-sage-dark); background: rgba(76, 122, 94, 0.14); }
+.badge-salida  { color: var(--color-brick); background: rgba(176, 69, 61, 0.12); }
+
+/* ============================================================
+   Resumen del admin: estado (aprobado / riesgo / pierde-descuento)
+   ============================================================ */
+.badge-estado {
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 14px 18px;
+  border-radius: 10px;
+  margin: 0 0 16px;
+  font-family: var(--font-body);
+}
+.badge-estado.ok     { background: rgba(76, 122, 94, 0.14);  color: var(--color-sage-dark);  border: 1.5px solid var(--color-sage); }
+.badge-estado.riesgo { background: rgba(184, 134, 59, 0.16); color: var(--color-amber-dark); border: 1.5px solid var(--color-amber); }
+.badge-estado.mal    { background: rgba(176, 69, 61, 0.12);  color: var(--color-brick);      border: 1.5px solid var(--color-brick); }
+
+.leyenda-colores {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--color-ink-soft);
+}
+.leyenda-colores i {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+/* ============================================================
+   Utilidades
+   ============================================================ */
+.link-dashboard {
+  display: block;
+  text-align: center;
+  color: var(--color-accent-dark);
+  font-weight: 600;
+  text-decoration: none;
+  margin-top: 10px;
+  font-size: 0.92rem;
+}
+.link-dashboard:hover { text-decoration: underline; }
+
+.divider-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--color-ink-soft);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 26px 0 14px;
+}
+.divider-label::before, .divider-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--color-border);
+}
+
+.fila-busqueda-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  margin-top: 8px;
+  background: var(--color-bg);
+  border: 1.5px solid var(--color-border);
+  font-weight: 600;
+  color: var(--color-ink);
+  border-radius: 8px;
+  padding: 10px 14px;
+}
+.fila-busqueda-item:hover { border-color: var(--color-accent); background: var(--color-bg); }
+
+:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
+
+/* --- Estilos para Notificaciones Toast --- */
+#toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.toast {
+  min-width: 280px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  color: #ffffff;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  animation: slideIn 0.3s ease-out forwards;
+}
+
+.toast.exito { background-color: #238636; border-left: 5px solid #2ea043; }
+.toast.error { background-color: #da3633; border-left: 5px solid #f85149; }
+.toast.advertencia { background-color: #9e6a03; border-left: 5px solid #f2cc60; }
+.toast.info { background-color: #1f6beb; border-left: 5px solid #388bfd; }
+
+@keyframes slideIn {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { transform: translateX(0); opacity: 1; }
+  to { transform: translateX(100%); opacity: 0; }
+}
