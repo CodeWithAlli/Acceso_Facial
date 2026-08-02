@@ -14,7 +14,7 @@
 //    aquí actúa solo como base de datos (Postgres). El backend Flask
 //    necesita un host de aplicaciones (Render/Railway funcionan bien
 //    y tienen plan gratuito).
-const BACKEND_URL_PRODUCCION = 'https://TU-BACKEND-EN-RENDER.onrender.com';
+const BACKEND_URL_PRODUCCION = 'https://sistema-acceso-facial-backend.onrender.com';
 
 const ES_LOCAL = ['localhost', '127.0.0.1', ''].includes(window.location.hostname);
 
